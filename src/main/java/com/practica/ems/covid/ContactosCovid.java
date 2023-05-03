@@ -20,6 +20,7 @@ import com.practica.genericas.FechaHora;
 import com.practica.genericas.Persona;
 import com.practica.genericas.PosicionPersona;
 import com.practica.lista.ListaContactos;
+import com.sun.glass.ui.ClipboardAssistance;
 
 public class ContactosCovid {
 	private Poblacion poblacion;
@@ -98,16 +99,16 @@ public class ContactosCovid {
 		FileReader fr = null;
 		BufferedReader br = null;
 		String datas[] = null, data = null;
-		loadDataFile(fichero, reset, archivo, fr, br, datas, data);
+		loadDataFile(fichero, reset, datas, data);
 
 	}
 
 	@SuppressWarnings("resource")
-	public void loadDataFile(String fichero, boolean reset, File archivo, FileReader fr, BufferedReader br, String datas[], String data ) {
+	public void loadDataFile(String fichero, boolean reset, String datas[], String data ) {
 		try {
-			archivo = new File(fichero);
-			fr = new FileReader(archivo);
-			br = new BufferedReader(fr);
+			File archivo = new File(fichero);
+			FileReader fr = new FileReader(archivo);
+			BufferedReader br = new BufferedReader(fr);
 			if (reset) {
 				this.poblacion = new Poblacion();
 				this.localizacion = new Localizacion();
@@ -124,6 +125,7 @@ public class ContactosCovid {
 			e.printStackTrace();
 		} finally {
 			try {
+				FileReader fr = new FileReader(new File(fichero));
 				if (null != fr) {
 					fr.close();
 				}
@@ -198,34 +200,7 @@ public class ContactosCovid {
 	}
 
 	private Persona crearPersona(String[] data) {
-		Persona persona = new Persona();
-		for (int i = 1; i < Constantes.MAX_DATOS_PERSONA; i++) {
-			String s = data[i];
-			switch (i) {
-				case 1:
-					persona.setDocumento(s);
-					break;
-				case 2:
-					persona.setNombre(s);
-					break;
-				case 3:
-					persona.setApellidos(s);
-					break;
-				case 4:
-					persona.setEmail(s);
-					break;
-				case 5:
-					persona.setDireccion(s);
-					break;
-				case 6:
-					persona.setCp(s);
-					break;
-				case 7:
-					persona.setFechaNacimiento(parsearFecha(s));
-					break;
-			}
-		}
-		return persona;
+		return new Persona(data[0], data[1], data[2], data[3], data[4], parsearFecha(data[5]));
 	}
 
 	private PosicionPersona crearPosicionPersona(String[] data) {
@@ -248,7 +223,7 @@ public class ContactosCovid {
 				case 4:
 					latitud = Float.parseFloat(s);
 					break;
-				case 5:
+				default:
 					longitud = Float.parseFloat(s);
 					posicionPersona.setCoordenada(new Coordenada(latitud, longitud));
 					break;
