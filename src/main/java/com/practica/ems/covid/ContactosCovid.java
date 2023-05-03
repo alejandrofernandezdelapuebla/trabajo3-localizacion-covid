@@ -21,6 +21,8 @@ import com.practica.genericas.Persona;
 import com.practica.genericas.PosicionPersona;
 import com.practica.lista.ListaContactos;
 
+import static com.practica.ems.covid.Localizacion.getFechaHoraComprimido;
+
 public class ContactosCovid {
 	private Poblacion poblacion;
 	private Localizacion localizacion;
@@ -60,7 +62,6 @@ public class ContactosCovid {
 
 	public void loadData(String data, boolean reset) throws EmsInvalidTypeException, EmsInvalidNumberOfDataException,
 			EmsDuplicatePersonException, EmsDuplicateLocationException {
-		// borro información anterior
 		if (reset) {
 			this.poblacion = new Poblacion();
 			this.localizacion = new Localizacion();
@@ -94,9 +95,6 @@ public class ContactosCovid {
 	}
 
 	public void loadDataFile(String fichero, boolean reset) {
-		File archivo = null;
-		FileReader fr = null;
-		BufferedReader br = null;
 		String datas[] = null, data = null;
 		loadDataFile(fichero, reset, datas, data);
 
@@ -242,16 +240,6 @@ public class ContactosCovid {
 	}
 
 	private FechaHora parsearFecha (String fecha, String hora) {
-		int dia, mes, anio;
-		String[] valores = fecha.split("\\/");
-		dia = Integer.parseInt(valores[0]);
-		mes = Integer.parseInt(valores[1]);
-		anio = Integer.parseInt(valores[2]);
-		int minuto, segundo;
-		valores = hora.split("\\:");
-		minuto = Integer.parseInt(valores[0]);
-		segundo = Integer.parseInt(valores[1]);
-		FechaHora fechaHora = new FechaHora(dia, mes, anio, minuto, segundo);
-		return fechaHora;
+		return getFechaHoraComprimido(fecha, hora);
 	}
 }

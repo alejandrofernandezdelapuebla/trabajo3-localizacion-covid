@@ -109,6 +109,10 @@ public class Localizacion {
 	}
 	
 	private  FechaHora parsearFecha (String fecha, String hora) {
+		return getFechaHoraComprimido(fecha, hora);
+	}
+
+	static FechaHora getFechaHoraComprimido(String fecha, String hora) {
 		int dia, mes, anio;
 		String[] valores = fecha.split("\\/");
 		dia = Integer.parseInt(valores[0]);
@@ -121,5 +125,5 @@ public class Localizacion {
 		FechaHora fechaHora = new FechaHora(dia, mes, anio, minuto, segundo);
 		return fechaHora;
 	}
-	
+
 }
