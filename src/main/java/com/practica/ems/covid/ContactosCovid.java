@@ -199,7 +199,7 @@ public class ContactosCovid {
 	}
 
 	private Persona crearPersona(String[] data) {
-		return new Persona(data[0], data[1], data[2], data[3], data[4], parsearFecha(data[5]));
+		return new Persona(data[2], data[3], data[1], data[4], data[5], parsearFecha(data[7]));
 	}
 
 	private PosicionPersona crearPosicionPersona(String[] data) {
