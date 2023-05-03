@@ -20,7 +20,6 @@ import com.practica.genericas.FechaHora;
 import com.practica.genericas.Persona;
 import com.practica.genericas.PosicionPersona;
 import com.practica.lista.ListaContactos;
-import com.sun.glass.ui.ClipboardAssistance;
 
 public class ContactosCovid {
 	private Poblacion poblacion;
